@@ -1,0 +1,42 @@
+.button-container1 {
+    position: fixed;
+    left: 1.5em;
+    top: 0.5em;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    z-index: 2;
+}
+
+.button-container2 {
+    position: fixed;
+    left: 1em;
+    top: 2em;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    z-index: 1;
+}
+
+#return-button {
+    font-family: "Lucida Console";
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgb(182, 253, 89);
+    border-radius: 1px;
+}
+
+#speaker-button {
+    font-family: "Lucida Console";
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgb(182, 253, 89);
+    border-radius: 5px;
+}
+
+#sound-on {
+    width: 100%;
+    height: auto;
+}

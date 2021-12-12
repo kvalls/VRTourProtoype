@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta de la Sal y la Cal</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+    <!--animation component script-->
+
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <link rel="stylesheet" href="assets/css/vr/menustyles.css">
+    <script src="assets/js/vr/hotspots.js"></script>
+    <script src="assets/js/vr/do_select_sound.js"></script>
+    <script src="assets/js/vr/sound_menu.js"></script>
+    <script src="assets/js/vr/draw_text_canvas.js"></script>
+    <script src="assets/js/vr/draw_canvas.js"></script>
+    <script src="assets/js/vr/show_info.js"></script>
+    <script src="assets/js/vr/hide_info.js"></script>
+
+</head>
+
+<body>
+
+    <div class="button-container1">
+
+        <a id="return-button" href="index.html">Volver</a>
+
+    </div>
+
+    <div class="button-container2">
+        <button id="speaker-button">
+             Ambiente
+            <img id="sound-on" src="assets/img/vr/options/soundon.png" alt="texture">
+        </button>
+    </div>
+
+    <a-scene background="color: #ECECEC">
+        <a-assets>
+            <img id="main" src="assets/img/vr/main_salinas.jpg" alt="ruta sal y cal">
+            <img id="salinas" src="assets/img/vr/las_salinas1.jpg" alt="las salinas">
+            <img id="muelle" src="assets/img/vr/puerto_y_pesca1.jpg" alt="muelle">
+            <img id="hornos-cal" src="assets/img/vr/hornos_de_cal1.jpg" alt="hornos de cal">
+            <img id="montaña-arinaga" src="assets/img/vr/montaña.jpg" alt="montaña de arinaga">
+            <img id="faro" src="assets/img/vr/faro.jpg" alt="faro">
+            <img id="frame-muelle" src="assets/img/vr/frame_muelle.png" alt="frame muelle">
+            <img id="frame-hornos" src="assets/img/vr/frame_hornos.png" alt="frame hornos">
+            <img id="frame-salinas" src="assets/img/vr/frame_salinas.png" alt="frame salinas">
+            <img id="frame-main" src="assets/img/vr/frame_main.png" alt="frame main">
+            <img id="frame-montaña" src="assets/img/vr/frame_montaña.png" alt="frame montaña arinaga">
+            <img id="frame-faro" src="assets/img/vr/frame_faro.png" alt="frame faro">
+            <img src="assets/play.png" id="play" crossorigin="anonymous" alt="play">
+            <img src="assets/pause.png" id="pause" crossorigin="anonymous" alt="pause">
+            <img src="assets/volume-normal.png" id="volume-normal" crossorigin="anonymous" alt="volume-on">
+            <img src="assets/volume-mute.png" id="volume-mute" crossorigin="anonymous" alt="volume-mute">
+            <img src="assets/seek-back.png" id="seek-back" crossorigin="anonymous" alt="seek-back">
+            <img src="assets/white_grid_thin.png" id="grid" crossorigin="anonymous" alt="white-grid">
+            <video id="video-src" src="assets/video/video_sabios_guias_interpretes.mp4"></video>
+            <audio id="muelle-ambience" src="assets/sounds/muelle_ambience.wav" preload="auto"></audio>
+            <audio id="montaña-wind" src="assets/sounds/montaña_wind.mp3" preload="auto"></audio>
+            <audio id="faro-wind-waves" src="assets/sounds/faro_wind_waves.wav" preload="auto"></audio>
+            <audio id="hornos-wind" src="assets/sounds/hornos_wind.wav" preload="auto"></audio>
+            <audio id="main-calm-waves" src="assets/sounds/main_calm_waves.wav" preload="auto"></audio>
+            <audio id="salinas-waves" src="assets/sounds/salinas_waves.mp3" preload="auto"></audio>
+            <audio id="select-sound" src="assets/sounds/select.mp3" preload="auto"></audio>
+
+            <img id="img-info" src="assets/img/vr/canvas/info.png" alt="info">
+            <img id="img-button-hide" src="assets/img/vr/canvas/hide.png" alt="hide">
+            <img id="montaña-info" src="assets/img/vr/canvas/canvas_montaña.png" alt="montaña-info">
+            <img id="salinas-info" src="assets/img/vr/canvas/canvas_salinas.png" alt="salinas-info">
+            <img id="muelle-info" src="assets/img/vr/canvas/canvas_puerto.png" alt="muelle-info">
+            <img id="main-info" src="assets/img/vr/canvas/canvas_main.png" alt="main-info">
+            <img id="hornos-info" src="assets/img/vr/canvas/canvas_hornos.png" alt="hornos-info">
+            <img id="faro-info" src="assets/img/vr/canvas/canvas_faro.png" alt="faro-info">
+
+            <canvas id="montaña-text-canvas" width="500" height="300"></canvas>
+            <canvas id="salinas-text-canvas" width="500" height="300"></canvas>
+            <canvas id="muelle-text-canvas" width="500" height="300"></canvas>
+            <canvas id="main-text-canvas" width="500" height="300"></canvas>
+            <canvas id="hornos-text-canvas" width="520" height="300"></canvas>
+            <canvas id="faro-text-canvas" width="500" height="300"></canvas>
+            <canvas id="main-image-canvas" width="100" height="100"></canvas>
+        </a-assets>
+
+        <a-entity id="cam" camera="" position="0 1.6 0" look-controls="" rotation="-27.960340402384183 312.7203645824033 0" data-aframe-inspector-original-camera="">
+            <a-entity cursor="fuse:true;fuseTimeout:2000" geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02" position="0 0 -1.8" material="shader:flat;color:#008000" animation__mouseenter="from:1 1 1;dir:reverse;dur:2000;property:scale;startEvents:mouseenter;to:4 4 4"
+                raycaster="objects: .clickable">
+            </a-entity>
+        </a-entity>
+
+
+
+        <a-entity id="spots" hotspots>
+            <a-entity id="group-point1">
+
+                <a-entity look-at="[camera]" position="1 1.6 2">
+                    <a-plane id="plane-main-info" class="clickable" material="src: #main-image-canvas; transparent: true" width=".4" height=".4" draw-canvas="canvas: #main-image-canvas; image: #img-info" show-info animation="property: position; to: 0 0.2 0; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    </a-plane>
+                    <a-image id="info1" material="src: #main-info" scale="1.5" visible="false">
+                    </a-image>
+                    <a-plane id="button-hide" class="clickable" position="0.65 0.6 0" scale="0.2 0.2" material="src: #img-button-hide" visible="false" hide-info></a-plane>
+                </a-entity>
+
+                <a-entity position="0 0 0">
+                    <!-- MEDIAS HOLDER -->
+                    <a-sound id="alert-sound" src="src: url(assets/action.wav)" autoplay="false" position="0 0 0"></a-sound>
+                    <a-video id="video-screen" src="#video-src" position="0 4.5 -14" width="16" height="9"></a-video>
+                    <!-- END MEDIAS HOLDER -->
+
+                    <!-- CONTROLS -->
+                    <a-image id="control-back" class="clickable" width="0.4" height="0.4" src="#seek-back" position="-0.8 0.6 -6" visible="false" scale="0.85 0.85 0.85"></a-image>
+                    <a-image id="control-play" class="clickable" width="0.4" height="0.4" src="#play" position="0 0.6 -6"></a-image>
+                    <a-image id="control-volume" class="clickable" width="0.4" height="0.4" src="#volume-normal" position="0.8 0.6 -6" visible="false" scale="0.75 0.75 0.75"></a-image>
+                    <!-- END CONTROLS -->
+
+                    <!-- PROGRESSBAR -->
+                    <a-entity id="progress-bar" class="clickable" geometry="primitive: plane; width: 4; height: 0.06;" material="transparent: true; visible:false; opacity: 0;" position="0 0.1 -6">
+                        <a-plane id="progress-bar-track" width="4" height="0.06" color="black" position="0 0 0.005" opacity="0.2" visible="false"></a-plane>
+                        <a-plane id="progress-bar-fill" width="0" height="0.06" color="#7198e5" position="-2 0 0.01" visible="false"></a-plane>
+
+                        <!-- END PROGRESSBAR -->
+                    </a-entity>
+                </a-entity>
+                <a-circle radius="0.75" src="#frame-muelle" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#muelle; spotgroup:group-point3; sound: #muelle-ambience; img: #muelle" position="3 1.6 -1" animation="property: position; to: 3 1.7 -1; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #muelle-text-canvas; transparent: true" position="0.2 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+                <a-circle radius="0.75" src="#frame-salinas" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#salinas;spotgroup:group-point4; sound: #salinas-waves; img: #salinas" position="-3 1.6 2" animation="property: position; to: -3 1.7 2; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #salinas-text-canvas; transparent: true" position="0.15 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+                <a-circle radius="0.75" src="#frame-montaña" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#montaña-arinaga;spotgroup:group-point7; sound: #montaña-wind; img: #montaña-arinaga" position="-3 1.6 -3" animation="property: position; to: -3 1.7 -3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #montaña-text-canvas; transparent: true" position="0 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+
+            </a-entity>
+
+
+            <a-entity id="group-point3" scale="0 0 0">
+                <a-circle radius="0.75" src="#frame-main" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#main; spotgroup:group-point1; sound: #main-calm-waves; img: #main" position="0.5 1.6 3.8" animation="property: position; to: 0.5 1.7 3.8; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #main-text-canvas; transparent: true" position="0.22 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-circle radius="0.75" src="#frame-hornos" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#hornos-cal; spotgroup:group-point5; sound: #hornos-wind; img: #hornos-cal" position="-3 1.6 -3" animation="property: position; to: -3 1.7 -3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #hornos-text-canvas; transparent: true" position="0.1 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-plane look-at="[camera]" width="3" material="src: #muelle-info; transparent: true" position="2 1 1"></a-plane>
+            </a-entity>
+            <a-entity id="group-point4" scale="0 0 0">
+                <a-circle radius="0.75" src="#frame-main" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#main; spotgroup:group-point1; sound: #main-calm-waves; img: #main" position="2.5 1.6 3" animation="property: position; to: 2.5 1.7 3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #main-text-canvas; transparent: true" position="0.22 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-plane look-at="[camera]" width="3" material="src: #salinas-info; transparent: true" position="-2 2 0"></a-plane>
+            </a-entity>
+            <a-entity id="group-point5" scale="0 0 0">
+                <a-circle radius="0.75" src="#frame-main" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#main; spotgroup:group-point1; sound: #main-calm-waves; img: #main" position="-5 1.6 -2" animation="property: position; to: -5 1.7 -2; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #main-text-canvas; transparent: true" position="0.22 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+                <a-circle radius="0.75" src="#frame-muelle" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#muelle; spotgroup:group-point3; sound: #muelle-ambience; img: #muelle" position="0 1.6 -3" animation="property: position; to: 0 1.7 -3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #muelle-text-canvas; transparent: true" position="0.2 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-plane look-at="[camera]" width="3" material="src: #hornos-info; transparent: true" position="1 0 2"></a-plane>
+            </a-entity>
+            <a-entity id="group-point7" scale="0 0 0">
+                <a-circle radius="0.75" src="#frame-main" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#main; spotgroup:group-point1; sound: #main-calm-waves; img: #main" position="2 1.6 -3" animation="property: position; to: 2 1.7 -3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #main-text-canvas; transparent: true" position="0.22 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-circle radius="0.75" src="#frame-faro" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#faro;spotgroup:group-point8; sound: #faro-wind-waves; img: #faro" position="-3 1.6 -1" animation="property: position; to: -3 1.7 -1; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #faro-text-canvas; transparent: true" position="0.3 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-plane look-at="[camera]" width="3" material="src: #montaña-info; transparent: true" position="1 1 2"></a-plane>
+            </a-entity>
+            <a-entity id="group-point8" scale="0 0 0">
+                <a-circle radius="0.75" src="#frame-main" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#main; spotgroup:group-point1; sound: #main-calm-waves; img: #main" position="3 1.6 3" animation="property: position; to: 3 1.7 3; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #main-text-canvas; transparent: true" position="0.22 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-circle radius="0.75" src="#frame-montaña" class="clickable" sound="src: #select-sound" do-select-sound spot="linkto:#montaña-arinaga;spotgroup:group-point7; sound: #montaña-wind; img: #montaña-arinaga" position="-3 1.6 2" animation="property: position; to: -3 1.7 2; dur: 2000; easing: linear; loop: true; dir: alternate">
+                    <a-plane material="src: #montaña-text-canvas; transparent: true" position="0 0.5 0" draw-text-canvas></a-plane>
+                </a-circle>
+
+                <a-plane look-at="[camera]" width="3" material="src: #faro-info; transparent: true" position="-2 1 -1"></a-plane>
+            </a-entity>
+
+            <a-sky id="skybox" position="0 5.151 0" src="#main" sound="src: #main-calm-waves; loop: true; autoplay: true; volume: 3"></a-sky>
+        </a-entity>
+    </a-scene>
+    <!-- Este script necesita estar aquí -->
+    <script src="assets/js/vr/a_video_player.js"></script>
+</body>
+
+</html>
